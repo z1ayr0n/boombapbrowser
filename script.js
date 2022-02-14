@@ -1,53 +1,55 @@
-console.clear();
-
+//Sample filepaths
+const kickPath = 'audio/2infamouz-bassdrum.wav';
+const kickPath2 = 'audio/2infamouz-bassdrum2.wav';
+//User gesture to enable audio in browser
 const allowAudioButton = document.getElementById('audioInit');
 
 audioInit.addEventListener('click', function() {
-
-initializeProgram();
-
+    initializeProgram();
 }, false);
 
+//References to pad button DOM elements
+const padButtonA = document.getElementById('padButtonA');
+const padButtonB = document.getElementById('padButtonB');
 
 function initializeProgram(){
     //cross browser audio context
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     const audioContext = new AudioContext();
 
-    // get the audio element
-    const audioElement = document.querySelector('audio');
-    audioElement.crossOrigin = "anonymous";
-    // pass it into the audio context
-    const track = audioContext.createMediaElementSource(audioElement);
-
-    //connect our source to the context
-    track.connect(audioContext.destination);
-
-    // select our play button
-    const playButton = document.getElementById('playpause');
-
-    //when audio file finishes playing
-    audioElement.addEventListener('ended', () => {
-        playButton.dataset.playing = 'false';
-    }, false);
-
-    //play button
-    playButton.addEventListener('click', function() {
-
-    // check if context is in suspended state (autoplay policy)
-    if (audioContext.state === 'suspended') {
-        audioContext.resume();
+    async function getFile(audioContext, filepath) {
+        const response = await fetch(filepath);
+        const arrayBuffer = await response.arrayBuffer();
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        return audioBuffer;
+    }
+    
+    async function setupSample() {
+        var sampleArray = new Array();
+        sampleArray[0] = await getFile(audioContext, kickPath);
+        console.log("kick sample loaded successfully");
+        sampleArray[1]= await getFile(audioContext, kickPath2);
+        console.log("kick2 sample loaded successfully");
+        return sampleArray;
     }
 
-    // play or pause track depending on state
-    if (this.dataset.playing === 'false') {
-        audioElement.play();
-        this.dataset.playing = 'true';
-    } else if (this.dataset.playing === 'true') {
-        audioElement.pause();
-        this.dataset.playing = 'false';
-    }
-    }, false);
+    setupSample()
+    .then((sampleArray) => {
+
+        function playSample(audioContext, audioBuffer) {
+            const sampleSource = audioContext.createBufferSource();
+            sampleSource.buffer = audioBuffer;
+            sampleSource.connect(audioContext.destination)
+            sampleSource.start();
+            return sampleSource;
+        }
+
+        padButtonA.addEventListener('click', function() {
+            playSample(audioContext, sampleArray[0]);
+        }, false);
+        padButtonB.addEventListener('click', function() {
+            playSample(audioContext, sampleArray[1]);
+        }, false);
+    });
+
 }
-
-
