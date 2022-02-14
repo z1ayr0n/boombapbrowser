@@ -3,8 +3,9 @@
 <html lang="en">
 
     <head>
-        <title>BoomBapBrowser by Ayron Thelen</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
         <!-- META-->
+        <title>BoomBapBrowser by Ayron Thelen</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, intial-scale=1">
         <meta name="description" content="A browser based drum machine project">
@@ -14,11 +15,23 @@
     </head>
 
     <body>
+        <!-- Audio Files -->
+        <audio src="audio/2infamouz-bassdrum.wav"></audio>
+        <!-- Page Contents -->
         <div class="container">
             <div id="heading"><h1>BoomBapBrowser</h1></div>
+            <button id="audioInit">
+                <span>Allow Audio</span>
+            </button>
 
             <div class="drumpads">
-                <div class="pad pad-a">Drumpad A</div>
+
+                <div class="pad pad-a">
+                    <button id="playpause" data-playing="false" role="switch" aria-checked="false">
+                        <span>Play/Pause</span>
+                    </button>
+                </div>
+
                 <div class="pad pad-b">Drumpad B</div>
                 <div class="pad pad-c">Drumpad C</div>
                 <div class="pad pad-d">Drumpad D</div>
