@@ -8,33 +8,114 @@ body{
     background-color:rgb(124, 124, 124);
     text-align:center;
 }
+.topWrapper {
+    position:absolute;
+    width:100%;
+    top:4%;
+    left:0;
+    min-height:6%;
+}
+#audioInit {
+    background-image: url('image/ui/front/powerbutton.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border:none;
+    background-color:transparent;
+    cursor: pointer;
+    width:5vh;
+    height:5vh;
+    padding:0;
+    margin:0 auto;
+}
 
 .container {
     position:absolute;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
+    background-image: url('image/ui/front/frontpanel.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
     background-color:white;
     margin: 0 auto;
+    max-width:800px;
+    max-height:730px;
+    min-width:400px;
     width:100%;
     height:100%;
 
 }
 
-.drumpads {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    grid-gap: 1em;
-    padding-left: 1em;
-    padding-right: 1em;
+.drumpadsRowA {
+    position:absolute;
+    width:100%;
+    height:20%;
+    top:26%;
+}
+
+.drumpadsRowB {
+    position:absolute;
+    width:100%;
+    height:20%;
+    top:48%;
 }
 
 .pad {
-    background:rgb(107, 107, 107);
+    background-image: url('image/ui/front/drumpad.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color:transparent;
     color:white;
-    border-radius: 8px;
-    padding-top: 2em;
-    padding-bottom: 2em;
-    box-shadow: 2px 2px rgba(92, 92, 92, 0.329)
+    border:none;
+    cursor: pointer;
+    min-height:14vh;
+    min-width:14vh;
+    margin-left:1vh;
+    margin-right:1vh;
 }
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 2vh;
+    height: 4vh;
+    border: 0;
+    background: url('image/ui/front/sliderButton.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 2vh;
+    height: 4vh;
+    border: 0;
+    background: url('image/ui/front/sliderButton.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    cursor: pointer;
+  }
+
+  .slider {
+    -webkit-appearance: none;
+    height: 1vh;
+    border-radius: 5px;
+    background: #000000;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+
+  .volumeFaderWrap {
+    position:absolute;
+    width:100%;
+    top:18%;
+    left:0;
+    min-height:6%;
+  }

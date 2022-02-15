@@ -17,27 +17,36 @@
     <body>
         <!-- Page Contents -->
         <div class="container">
-            <div id="heading"><h1>BoomBapBrowser</h1></div>
-            <button id="audioInit">
-                <span>Allow Audio</span>
-            </button>
+            <div class="topWrapper">
+                <button id="audioInit"></button>
+            </div>
 
-            <div class="drumpads">
+            <div class="volumeFaderWrap">
+                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+            </div>
+
+            <div class="drumpadsRowA">
 
                     <button class="pad pad-a" id="padButtonA">
-                        <span>Kick</span>
+                        <span>A</span>
                     </button>
 
                     <button class="pad pad-b" id="padButtonB">
-                        <span>Kick2</span>
+                        <span>B</span>
                     </button>
 
-                <div class="pad pad-c">Drumpad C</div>
-                <div class="pad pad-d">Drumpad D</div>
-                <div class="pad pad-e">Drumpad E</div>
-                <div class="pad pad-f">Drumpad F</div>
-                <div class="pad pad-g">Drumpad G</div>
-                <div class="pad pad-h">Drumpad H</div>
+            </div>
+
+            <div class="drumpadsRowB">
+
+                <button class="pad pad-c" id="padButtonC">
+                    <span>C</span>
+                </button>
+
+                <button class="pad pad-d" id="padButtonD">
+                    <span>D</span>
+                </button>
+
             </div>
         </div>
         <!-- SCRIPTS -->
