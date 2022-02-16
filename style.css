@@ -61,10 +61,6 @@ body{
     margin-right:1vh;
 }
 
-.pad:hover {
-    background-image: url('image/ui/front/drumpad-press.png');
-}
-
 .mFilterSlider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;

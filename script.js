@@ -1,9 +1,7 @@
 //TODO: Suspend audio while power is off.
 //TODO: Allow user to toggle master filter on/off.
 //TODO: Settings for pads (backpanel ui).
-//TODO: Keyboard input to trigger pads.
 //TODO: Power on sound.
-//TODO: Trigger pad down image on click, release on mouseUp
 //TODO: ADSR Envelopes
 //TODO: Mobile support & Browser compatibility
 
@@ -13,7 +11,7 @@ const snarePath = 'audio/BoomBapSnare.wav';
 const hihatPath = 'audio/BoomBapHiHat.wav';
 const percPath = 'audio/BoomBapPerc.wav';
 
-//Master filter
+//Master filter control
 const mFilterController = document.getElementById('mFilterBand');
 var mFilterFrequency = 725;
 mFilterController.addEventListener('input', function() {
@@ -63,6 +61,7 @@ function initializeProgram(){
     
     async function setupSample() {
         var sampleArray = new Array();
+        //store decoded buffers in array
         sampleArray[0] = await getFile(audioContext, kickPath);
         console.log("kick sample loaded successfully");
         sampleArray[1]= await getFile(audioContext, snarePath);
@@ -73,9 +72,6 @@ function initializeProgram(){
         console.log("perc sample loaded successfully");
         return sampleArray;
     }
-
-
-
 
     setupSample()
     .then((sampleArray) => {
@@ -88,19 +84,113 @@ function initializeProgram(){
             sampleSource.start();
             return sampleSource;
         }
-
-        padButtonA.addEventListener('click', function() {
+        //Mousedown events for pads
+        padButtonA.addEventListener('mousedown', function() {
+            padButtonA.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
             playSample(audioContext, sampleArray[0]);
         }, false);
-        padButtonB.addEventListener('click', function() {
+        padButtonB.addEventListener('mousedown', function() {
+            padButtonB.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
             playSample(audioContext, sampleArray[1]);
         }, false);
-        padButtonC.addEventListener('click', function() {
+        padButtonC.addEventListener('mousedown', function() {
+            padButtonC.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
             playSample(audioContext, sampleArray[2]);
         }, false);
-        padButtonD.addEventListener('click', function() {
+        padButtonD.addEventListener('mousedown', function() {
+            padButtonD.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
             playSample(audioContext, sampleArray[3]);
         }, false);
-    });
 
+        //Mouseup events for pads
+        padButtonA.addEventListener('mouseup', function() {
+            padButtonA.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+        }, false);
+        padButtonB.addEventListener('mouseup', function() {
+            padButtonB.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+        }, false);
+        padButtonC.addEventListener('mouseup', function() {
+            padButtonC.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+        }, false);
+        padButtonD.addEventListener('mouseup', function() {
+            padButtonD.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+        }, false);
+
+        //Keyboard events (key down)
+        window.addEventListener("keydown", function (event) {
+        if (event.defaultPrevented) {
+          return; // Do nothing if the event was already processed
+        }
+        switch (event.key) {
+        case "ArrowDown":
+        case "s":
+            // code for "down arrow" key press.
+            padButtonA.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
+            playSample(audioContext, sampleArray[0]);
+            break;
+        case "ArrowUp":
+        case "w":
+            // code for "up arrow" key press.
+            padButtonB.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
+            playSample(audioContext, sampleArray[1]);
+            break;
+        case "ArrowLeft":
+        case "a":
+            // code for "left arrow" key press.
+            padButtonC.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
+            playSample(audioContext, sampleArray[2]);
+            break;
+        case "ArrowRight":
+        case "d":
+            // code for "right arrow" key press.
+            padButtonD.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
+            playSample(audioContext, sampleArray[3]);
+            break;
+        default:
+            return; // Quit when this doesn't handle the key event.
+        }
+    
+            // Cancel the default action to avoid it being handled twice
+            event.preventDefault();
+        }, true);
+        // the last option dispatches the event to the listener first,
+        // then dispatches event to window
+
+        //Keyboard events (key up)
+        window.addEventListener("keyup", function (event) {
+        if (event.defaultPrevented) {
+            return; // Do nothing if the event was already processed
+        }
+        switch (event.key) {
+        case "ArrowDown":
+        case "s":
+            // code for "down arrow" key press.
+            padButtonA.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+            break;
+        case "ArrowUp":
+        case "w":
+            // code for "up arrow" key press.
+            padButtonB.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+            break;
+        case "ArrowLeft":
+        case "a":
+            // code for "left arrow" key press.
+            padButtonC.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+            break;
+        case "ArrowRight":
+        case "d":
+            // code for "right arrow" key press.
+            padButtonD.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+            break;
+        default:
+            return; // Quit when this doesn't handle the key event.
+        }
+    
+            // Cancel the default action to avoid it being handled twice
+            event.preventDefault();
+        }, true);
+        // the last option dispatches the event to the listener first,
+        // then dispatches event to window
+
+    });
 }
