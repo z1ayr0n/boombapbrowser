@@ -15,14 +15,8 @@ body{
     left:0;
     min-height:6%;
 }
-#audioInit {
-    background-image: url('image/ui/front/powerbutton.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    border:none;
-    background-color:transparent;
-    cursor: pointer;
+.powerButton {
+    background-image: url('image/ui/front/powerbutton-off.png');
     width:5vh;
     height:5vh;
     padding:0;
@@ -35,10 +29,6 @@ body{
     left:50%;
     transform:translate(-50%,-50%);
     background-image: url('image/ui/front/frontpanel.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    background-color:white;
     margin: 0 auto;
     max-width:800px;
     max-height:730px;
@@ -64,20 +54,18 @@ body{
 
 .pad {
     background-image: url('image/ui/front/drumpad.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color:transparent;
     color:white;
-    border:none;
-    cursor: pointer;
     min-height:14vh;
     min-width:14vh;
     margin-left:1vh;
     margin-right:1vh;
 }
 
-.slider::-webkit-slider-thumb {
+.pad:hover {
+    background-image: url('image/ui/front/drumpad-press.png');
+}
+
+.mFilterSlider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 2vh;
@@ -90,7 +78,7 @@ body{
     cursor: pointer;
   }
   
-  .slider::-moz-range-thumb {
+  .mFilterSlider::-moz-range-thumb {
     width: 2vh;
     height: 4vh;
     border: 0;
@@ -101,7 +89,7 @@ body{
     cursor: pointer;
   }
 
-  .slider {
+  .mFilterSlider {
     -webkit-appearance: none;
     height: 1vh;
     border-radius: 5px;
@@ -112,10 +100,22 @@ body{
     transition: opacity .2s;
   }
 
-  .volumeFaderWrap {
+  .masterFilterWrap {
     position:absolute;
     width:100%;
     top:18%;
     left:0;
     min-height:6%;
+  }
+
+  .bgImage {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border:none;
+    background-color:transparent;
+  }
+
+  .buttonStyle {
+      cursor: pointer;
   }
