@@ -124,9 +124,10 @@ body{
 }
 
 .filterWrapper {
-    position:relative;
+    position:absolute;
     width:100%;
     top:20vh;
+    left:0;
 }
 
 .filterWrap {
@@ -134,9 +135,9 @@ body{
 }
 
 .backBottomWrapper {
-    position:relative;
+    position:absolute;
     width:100%;
-    top:36vh;
+    top:55vh;
     left:0;
 }
 
