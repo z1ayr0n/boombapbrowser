@@ -1,4 +1,3 @@
-//TODO: Suspend audio while power is off.
 //TODO: Allow user to toggle master filter on/off.
 //TODO: Settings for pads (backpanel ui).
 //TODO: Power on sound.
@@ -11,9 +10,12 @@ const snarePath = 'audio/BoomBapSnare.wav';
 const hihatPath = 'audio/BoomBapHiHat.wav';
 const percPath = 'audio/BoomBapPerc.wav';
 
+//Gain parameters
+var masterGainValue = 1;
+
 //Master filter control
 const mFilterController = document.getElementById('mFilterBand');
-var mFilterFrequency = 725;
+var mFilterFrequency = 800;
 mFilterController.addEventListener('input', function() {
     mFilterFrequency = Number(this.value);
 }, false);
@@ -32,9 +34,11 @@ powerButton.addEventListener('click', function() {
     if(hasPower){
         powerButton.setAttribute("style", "background-image: url('image/ui/front/powerbutton-off.png')");
         hasPower = false;
+        masterGainValue = 0;
     } else {
         powerButton.setAttribute("style", "background-image: url('image/ui/front/powerbutton.png')");
         hasPower = true;
+        masterGainValue = 1;
     }
 }, false);
 
@@ -51,7 +55,10 @@ function initializeProgram(){
     //Create bandpass for master filter
     var bandpass = audioContext.createBiquadFilter();
     bandpass.type = 'bandpass';
+    //Create master gain node
+    var mGainNode = audioContext.createGain();
 
+    //Load samples to buffer and decode
     async function getFile(audioContext, filepath) {
         const response = await fetch(filepath);
         const arrayBuffer = await response.arrayBuffer();
@@ -59,9 +66,9 @@ function initializeProgram(){
         return audioBuffer;
     }
     
+    //Store decoded buffers in array
     async function setupSample() {
         var sampleArray = new Array();
-        //store decoded buffers in array
         sampleArray[0] = await getFile(audioContext, kickPath);
         console.log("kick sample loaded successfully");
         sampleArray[1]= await getFile(audioContext, snarePath);
@@ -73,6 +80,7 @@ function initializeProgram(){
         return sampleArray;
     }
 
+    //When samples are ready then allow playback and user input
     setupSample()
     .then((sampleArray) => {
 
@@ -80,7 +88,8 @@ function initializeProgram(){
             const sampleSource = audioContext.createBufferSource();
             sampleSource.buffer = audioBuffer;
             bandpass.frequency.value = mFilterFrequency;
-            sampleSource.connect(bandpass).connect(audioContext.destination)
+            mGainNode.gain.value = masterGainValue;
+            sampleSource.connect(bandpass).connect(mGainNode).connect(audioContext.destination)
             sampleSource.start();
             return sampleSource;
         }
