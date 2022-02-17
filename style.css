@@ -27,23 +27,26 @@ body{
     top:40%;
     left:50%;
     transform:translate(-50%,-50%);
-    background-image: url('image/ui/front/frontpanel.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: contain;
+    border:none;
+    background-color:transparent;
     margin: 0 auto;
     width:100%;
     height:80%;
-
 }
 
 .drumpadsRowA {
     position:relative;
     width:100%;
-    top:15vh;
+    top:12vh;
 }
 
 .drumpadsRowB {
     position:relative;
     width:100%;
-    top:16vh;
+    top:12vh;
 }
 
 .pad {
@@ -65,10 +68,11 @@ body{
     background-size:contain;
     background-repeat:no-repeat;
     background-color:transparent;
+    background-position: center;
     cursor: pointer;
-  }
+}
   
-  .mFilterSlider::-moz-range-thumb {
+.mFilterSlider::-moz-range-thumb {
     height: 4vh;
     width:3vh;
     border: 0;
@@ -76,10 +80,11 @@ body{
     background-size:contain;
     background-repeat:no-repeat;
     background-color:transparent;
+    background-position: center;
     cursor: pointer;
-  }
+}
 
-  .mFilterSlider {
+.mFilterSlider {
     -webkit-appearance: none;
     height: 1vh;
     border-radius: 2vh;
@@ -90,37 +95,72 @@ body{
     transition: opacity .2s;
     width:24vh;
     margin:0;
-  }
+}
 
-  .masterFilterWrap {
-    position:absolute;
+.masterFilterWrap {
+    position:relative;
     width:100%;
-    top:15vh;
+    top:9vh;
     left:0;
-  }
+}
 
-  .bgImage {
+.bgImage {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     border:none;
     background-color:transparent;
-  }
+}
 
-  .buttonStyle {
-      cursor: pointer;
-  }
+.buttonStyle {
+    cursor: pointer;
+}
 
-  .bottomWrapper {
+.bottomWrapper {
     position:relative;
     width:100%;
-    top:17.5vh;
+    top:14vh;
     left:0;
 }
+
+.filterWrapper {
+    position:relative;
+    width:100%;
+    top:20vh;
+}
+
+.filterWrap {
+    margin-bottom:5vh;
+}
+
+.backBottomWrapper {
+    position:relative;
+    width:100%;
+    top:36vh;
+    left:0;
+}
+
 .settingsButton {
     background-image: url('image/ui/front/settingsbutton.png');
     width:5vh;
     height:5vh;
     padding:0;
     margin:0 auto;
+}
+
+.returnButton {
+    background-image: url('image/ui/back/returnbutton.png');
+    width:5vh;
+    height:5vh;
+    padding:0;
+    margin:0 auto;
+}
+
+.backPanel {
+    background-image: url('image/ui/back/backpanel.png');
+    visibility: hidden;
+}
+
+.frontPanel {
+    background-image: url('image/ui/front/frontpanel.png');
 }

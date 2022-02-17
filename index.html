@@ -16,7 +16,7 @@
 
     <body>
         <!-- Page Contents -->
-        <div class="container bgImage">
+        <div class="container frontPanel" id="frontPanel">
 
             <div class="topWrapper">
                 <button class="powerButton bgImage buttonStyle" id="powerButton"></button>
@@ -38,6 +38,20 @@
 
             <div class="bottomWrapper">
                 <button class="settingsButton bgImage buttonStyle" id="settingsButton"></button>
+            </div>
+        </div>
+
+        <div class="container backPanel" id="backPanel">
+
+            <div class="filterWrapper">
+                <div class="filterWrap"><input name="rate" id="aRate" class="mFilterSlider" type="range" min="0.2" max="2" value="1" step="0.1" /></div>
+                <div class="filterWrap"><input name="rate" id="bRate" class="mFilterSlider" type="range" min="0.2" max="2" value="1" step="0.1" /></div>
+                <div class="filterWrap"><input name="rate" id="cRate" class="mFilterSlider" type="range" min="0.2" max="2" value="1" step="0.1" /></div>
+                <div class="filterWrap"><input name="rate" id="dRate" class="mFilterSlider" type="range" min="0.2" max="2" value="1" step="0.1" /></div>
+            </div>
+
+            <div class="backBottomWrapper">
+                <button class="returnButton bgImage buttonStyle" id="returnButton"></button>
             </div>
 
         </div>
