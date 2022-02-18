@@ -1,6 +1,5 @@
 //TODO: Allow user to toggle master filter on/off.
 //TODO: Power on sound.
-//TODO: ADSR Envelopes
 
 //Sample filepaths
 const kickPath = 'audio/BoomBapKick.wav';
@@ -8,8 +7,27 @@ const snarePath = 'audio/BoomBapSnare.wav';
 const hihatPath = 'audio/BoomBapHiHat.wav';
 const percPath = 'audio/BoomBapPerc.wav';
 
+//References to pad button DOM elements
+const padButtonA = document.getElementById('padButtonA');
+const padButtonB = document.getElementById('padButtonB');
+const padButtonC = document.getElementById('padButtonC');
+const padButtonD = document.getElementById('padButtonD');
+//References to sample speed / pitch controllers
+const aRateControl = document.getElementById('padPitchInputA');
+const bRateControl = document.getElementById('padPitchInputB');
+const cRateControl = document.getElementById('padPitchInputC');
+const dRateControl = document.getElementById('padPitchInputD');
+//References to individual gain controllers
+const aGainControl = document.getElementById('padVolumeInputA');
+const bGainControl = document.getElementById('padVolumeInputB');
+const cGainControl = document.getElementById('padVolumeInputC');
+const dGainControl = document.getElementById('padVolumeInputD');
 //Gain parameters
 var masterGainValue = 1;
+var aGainValue = 1;
+var bGainValue = 1;
+var cGainValue = 1;
+var dGainValue = 1;
 
 //Master filter control
 const mFilterController = document.getElementById('mFilterBand');
@@ -17,6 +35,14 @@ var mFilterFrequency = 1100;
 mFilterController.addEventListener('input', function() {
     mFilterFrequency = Number(this.value);
 }, false);
+
+//Disable sliders until powered on
+//Prevents input for functionality that hasn't been intitialized yet.
+mFilterController.disabled = true;
+aRateControl.disabled = true;
+bRateControl.disabled = true;
+cRateControl.disabled = true;
+dRateControl.disabled = true;
 
 //Power Button
 //User gesture to enable audio in browser
@@ -59,17 +85,8 @@ powerButton.addEventListener('click', function() {
     }
 }, false);
 
-//References to pad button DOM elements
-const padButtonA = document.getElementById('padButtonA');
-const padButtonB = document.getElementById('padButtonB');
-const padButtonC = document.getElementById('padButtonC');
-const padButtonD = document.getElementById('padButtonD');
-//References to rate controllers
-const aRateControl = document.getElementById('aRate');
-const bRateControl = document.getElementById('bRate');
-const cRateControl = document.getElementById('cRate');
-const dRateControl = document.getElementById('dRate');
 
+//Initialize program - kicks off when power button is pressed the first time.
 function initializeProgram(){
     //cross browser audio context
     const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -84,21 +101,43 @@ function initializeProgram(){
     var bGainNode = audioContext.createGain();
     var cGainNode = audioContext.createGain();
     var dGainNode = audioContext.createGain();
+    //Update gain node value and return the node
     function padGainSelect(pad){
         switch (pad) {
             case 0:
+                aGainNode.gain.value = aGainValue;
                 return aGainNode;
             case 1:
+                bGainNode.gain.value = bGainValue;
                 return bGainNode;
             case 2:
+                cGainNode.gain.value = cGainValue;
                 return cGainNode;
             case 3:
+                dGainNode.gain.value = dGainValue;
                 return dGainNode;
             default:
                 console.log("invalid pad number entered");
                 break;
         }
     }
+    //Individual Gain Controllers
+    aGainControl.addEventListener('input', function() {
+        aGainValue = Number(this.value);
+    }, false);
+
+    bGainControl.addEventListener('input', function() {
+        bGainValue = Number(this.value);
+    }, false);
+
+    cGainControl.addEventListener('input', function() {
+        cGainValue = Number(this.value);
+    }, false);
+
+    dGainControl.addEventListener('input', function() {
+        dGainValue = Number(this.value);
+    }, false);
+
     //Sample rate for pads
     let aSampleRate = 1;
     let bSampleRate = 1;
@@ -119,6 +158,7 @@ function initializeProgram(){
                 break;
         }
     }
+
     aRateControl.addEventListener('input', function() {
         aSampleRate = Number(this.value);
     }, false);
@@ -131,6 +171,13 @@ function initializeProgram(){
     dRateControl.addEventListener('input', function() {
         dSampleRate = Number(this.value);
     }, false);
+
+    //Enable slider / fader controls now that they're functional
+    mFilterController.disabled = false;
+    aRateControl.disabled = false;
+    bRateControl.disabled = false;
+    cRateControl.disabled = false;
+    dRateControl.disabled = false;
 
     //Load samples to buffer and decode
     async function getFile(audioContext, filepath) {

@@ -15,7 +15,7 @@
     </head>
 
     <body>
-        <!-- Page Contents -->
+        <!--Front Panel-->
         <div class="container frontPanel" id="frontPanel">
 
             <div class="topWrapper">
@@ -42,22 +42,168 @@
 
         </div>
 
+        <!--Back Panel-->
         <div class="container backPanel" id="backPanel">
 
-            
-                <div class="filterA wrapper">
-                    <input name="rate" id="aRate" class="fader" type="range" min="0.2" max="2" value="1" step="0.1" />
+                <!--Settings panel A-->
+                <div class="padSettingsPanel wrapper settingsA">
+
+                    <div class="settingsLeft bgImage settingsNumberA"></div>
+
+                    <div class="sliderPanel bgImage">
+                        <div class="faderSpace"></div>
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage volumeFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padVolumeInputA" id="padVolumeInputA" class="settingsFader" type="range" min="0" max="1" value="1" step="0.1" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+                        
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage filterFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padFilterInputA" id="padFilterInputA" class="settingsFader" type="range" min="200" max="2000" value="1100" step="5" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage pitchFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padPitchInputA" id="padPitchInputA" class="settingsFader" type="range" min="0.2" max="1.8" value="1" step="0.1" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+
+                    </div>
+
+                    <div class="settingsRight"></div>
+
                 </div>
-                <div class="filterB wrapper">
-                    <input name="rate" id="bRate" class="fader" type="range" min="0.2" max="2" value="1" step="0.1" />
+
+                <!--Settings panel B-->
+                <div class="padSettingsPanel wrapper settingsB">
+
+                    <div class="settingsLeft bgImage settingsNumberB"></div>
+
+                    <div class="sliderPanel bgImage">
+                        <div class="faderSpace"></div>
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage volumeFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padVolumeInputB" id="padVolumeInputB" class="settingsFader" type="range" min="0" max="1" value="1" step="0.1" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+                        
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage filterFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padFilterInputB" id="padFilterInputB" class="settingsFader" type="range" min="200" max="2000" value="1100" step="5" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage pitchFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padPitchInputB" id="padPitchInputB" class="settingsFader" type="range" min="0.2" max="1.8" value="1" step="0.1" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+
+                    </div>
+
+                    <div class="settingsRight"></div>
+
                 </div>
-                <div class="filterC wrapper">
-                    <input name="rate" id="cRate" class="fader" type="range" min="0.2" max="2" value="1" step="0.1" />
+
+                <!--Settings panel C-->
+                <div class="padSettingsPanel wrapper settingsC">
+
+                    <div class="settingsLeft bgImage settingsNumberC"></div>
+
+                    <div class="sliderPanel bgImage">
+                        <div class="faderSpace"></div>
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage volumeFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padVolumeInputC" id="padVolumeInputC" class="settingsFader" type="range" min="0" max="1" value="1" step="0.1" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+                        
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage filterFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padFilterInputC" id="padFilterInputC" class="settingsFader" type="range" min="200" max="2000" value="1100" step="5" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage pitchFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padPitchInputC" id="padPitchInputC" class="settingsFader" type="range" min="0.2" max="1.8" value="1" step="0.1" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+
+                    </div>
+
+                    <div class="settingsRight"></div>
+
                 </div>
-                <div class="filterD wrapper">
-                    <input name="rate" id="dRate" class="fader" type="range" min="0.2" max="2" value="1" step="0.1" />
-                </div>
-            
+
+                <!--Settings panel D-->
+                <div class="padSettingsPanel wrapper settingsD">
+
+                    <div class="settingsLeft bgImage settingsNumberD"></div>
+
+                    <div class="sliderPanel bgImage">
+                        <div class="faderSpace"></div>
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage volumeFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padVolumeInputD" id="padVolumeInputD" class="settingsFader" type="range" min="0" max="1" value="1" step="0.1" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+                        
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage filterFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padFilterInputD" id="padFilterInputD" class="settingsFader" type="range" min="200" max="2000" value="1100" step="5" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+
+                        <div class="faderContainer">
+                            <div class="faderLabel bgImage pitchFader leftFloats"></div>
+                            <div class="faderControl bgImage leftFloats">
+                                <input name="padPitchInputD" id="padPitchInputD" class="settingsFader" type="range" min="0.2" max="1.8" value="1" step="0.1" />
+                            </div>
+                        </div>
+
+                        <div class="faderSpace"></div>
+
+                    </div>
+
+                    <div class="settingsRight"></div>
+
+                </div>            
 
             <div class="backBottom wrapper">
                 <button class="returnButton bgImage buttonStyle" id="returnButton"></button>

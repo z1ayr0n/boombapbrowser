@@ -130,37 +130,172 @@ body{
 }
 
 .filterA {
-    top:18vh;
+    top:80vh;
 }
 .filterB {
-    top:25vh;
+    top:80vh;
 }
 .filterC {
-    top:32vh;
+    top:80vh;
 }
 .filterD {
-    top:39vh;
+    top:80vh;
 }
 
 .backBottom {
-    top:59vh;
+    top:62vh;
 }
 
 .settingsButton {
     background-image: url('image/ui/front/settingsbutton.png');
-    width:3vh;
-    height:3vh;
+    width:4vh;
+    height:4vh;
     padding:0;
     margin:0 auto;
 }
 
 .returnButton {
     background-image: url('image/ui/back/returnbutton.png');
-    width:5vh;
-    height:5vh;
+    width:4vh;
+    height:4vh;
     padding:0;
     margin:0 auto;
 }
+
+.settingsA {
+    top:17vh;
+}
+.settingsB {
+    top:28vh;
+}
+.settingsC {
+    top:39vh;
+}
+.settingsD {
+    top:50vh;
+}
+
+.padSettingsPanel {
+    height:10vh;
+}
+
+.settingsLeft {
+    float: left;
+    width:22%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.settingsFader {
+    -webkit-appearance: none;
+    border-radius: 2vh;
+    opacity: 1;
+    background: transparent;
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    width: 100%;
+    margin:0;
+}
+
+.settingsFader::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 2.8vh;
+    width: 2.8vh;
+    border: 0;
+    background-image: url('image/ui/front/sliderButton.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    background-position: center;
+    cursor: pointer;
+}
+  
+.settingsFader::-moz-range-thumb {
+    height: 2.8vh;
+    width: 2.8vh;
+    border: 0;
+    background-image: url('image/ui/front/sliderButton.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-color:transparent;
+    background-position: center;
+    cursor: pointer;
+}
+
+.settingsNumberA {
+    background-image: url('image/ui/back/settingsNumberA.png');
+}
+.settingsNumberB {
+    background-image: url('image/ui/back/settingsNumberB.png');
+}
+.settingsNumberC {
+    background-image: url('image/ui/back/settingsNumberC.png');
+}
+.settingsNumberD {
+    background-image: url('image/ui/back/settingsNumberD.png');
+}
+
+.sliderPanel {
+    background-image: url('image/ui/back/padsettingsbg.png');
+    background-size:cover;
+    width:56%;
+    height: 100%;
+    float: left;
+    margin: 0 auto;
+    border-radius: 0.5vh;
+}
+
+.leftFloats {
+    float: left;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.settingsRight {
+    width:22%;
+    float: left;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.faderSpace {
+    width:100%;
+    height: 4%;
+}
+
+.faderContainer {
+    width: 96%;
+    height: 28%;
+    background-color:black;
+    margin: 0 auto;
+    border-radius: 0.25vh;
+}
+
+.faderLabel {
+    width:38%;
+}
+
+.faderControl {
+    width:60%;
+    background-image: url('image/ui/back/padslidersbg.png');
+}
+
+.volumeFader {
+    background-image: url('image/ui/back/volumelabel.png');
+}
+
+.filterFader {
+    background-image: url('image/ui/back/filterlabel.png');
+}
+
+.pitchFader {
+    background-image: url('image/ui/back/pitchlabel.png');
+}
+
+
+
 
 .backPanel {
     background-image: url('image/ui/back/backpanel.png');
