@@ -1,5 +1,5 @@
 html, body {
-    height:100%;
+    height:100vh;
     margin:0;
     padding:0;
 }
@@ -9,8 +9,8 @@ body{
     text-align:center;
 }
 .topWrapper {
-    position:relative;
-    width:100%;
+    position:absolute;
+    width:100vw;
     top:3vh;
     left:0;
 }
@@ -38,15 +38,15 @@ body{
 }
 
 .drumpadsRowA {
-    position:relative;
+    position:absolute;
     width:100%;
-    top:12vh;
+    top:20vh;
 }
 
 .drumpadsRowB {
-    position:relative;
+    position:absolute;
     width:100%;
-    top:12vh;
+    top:36vh;
 }
 
 .pad {
@@ -95,12 +95,14 @@ body{
     transition: opacity .2s;
     width:24vh;
     margin:0;
+    transform: translate(-50%, 0);
+    position: absolute;
 }
 
 .masterFilterWrap {
-    position:relative;
+    position:absolute;
     width:100%;
-    top:9vh;
+    top:15vh;
     left:0;
 }
 
@@ -117,21 +119,21 @@ body{
 }
 
 .bottomWrapper {
-    position:relative;
+    position:absolute;
     width:100%;
-    top:14vh;
+    top:54vh;
     left:0;
 }
 
 .filterWrapper {
     position:absolute;
     width:100%;
-    top:20vh;
+    top:16vh;
     left:0;
 }
 
 .filterWrap {
-    margin-bottom:5vh;
+    height:8vh;
 }
 
 .backBottomWrapper {
