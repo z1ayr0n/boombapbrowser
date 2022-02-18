@@ -1,8 +1,6 @@
 //TODO: Allow user to toggle master filter on/off.
-//TODO: Settings for pads (backpanel ui).
 //TODO: Power on sound.
 //TODO: ADSR Envelopes
-//TODO: Mobile support & Browser compatibility
 
 //Sample filepaths
 const kickPath = 'audio/BoomBapKick.wav';
@@ -15,7 +13,7 @@ var masterGainValue = 1;
 
 //Master filter control
 const mFilterController = document.getElementById('mFilterBand');
-var mFilterFrequency = 800;
+var mFilterFrequency = 1100;
 mFilterController.addEventListener('input', function() {
     mFilterFrequency = Number(this.value);
 }, false);
