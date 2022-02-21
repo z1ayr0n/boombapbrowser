@@ -1,5 +1,8 @@
 //TODO: Allow user to toggle master filter on/off.
-//TODO: Power on sound.
+//TODO: Power on sound + Vinyl noise.
+//TODO: Redo layout using innerHeight value on resize.
+//TODO: Wire up pad lowpass filters.
+//TODO: Refactor / Cleanup redundancy.
 
 //Sample filepaths
 const kickPath = 'audio/BoomBapKick.wav';
@@ -12,16 +15,25 @@ const padButtonA = document.getElementById('padButtonA');
 const padButtonB = document.getElementById('padButtonB');
 const padButtonC = document.getElementById('padButtonC');
 const padButtonD = document.getElementById('padButtonD');
+
 //References to sample speed / pitch controllers
 const aRateControl = document.getElementById('padPitchInputA');
 const bRateControl = document.getElementById('padPitchInputB');
 const cRateControl = document.getElementById('padPitchInputC');
 const dRateControl = document.getElementById('padPitchInputD');
+
+//References to individual pad lowpass filters
+const aFilterControl = document.getElementById('padFilterInputA');
+const bFilterControl = document.getElementById('padFilterInputB');
+const cFilterControl = document.getElementById('padFilterInputC');
+const dFilterControl = document.getElementById('padFilterInputD');
+
 //References to individual gain controllers
 const aGainControl = document.getElementById('padVolumeInputA');
 const bGainControl = document.getElementById('padVolumeInputB');
 const cGainControl = document.getElementById('padVolumeInputC');
 const dGainControl = document.getElementById('padVolumeInputD');
+
 //Gain parameters
 var masterGainValue = 1;
 var aGainValue = 1;
@@ -29,9 +41,16 @@ var bGainValue = 1;
 var cGainValue = 1;
 var dGainValue = 1;
 
+//Filter frequency parameters
+var mFilterFrequency = 2000;
+var aFilterFrequency = 2000;
+var bFilterFrequency = 2000;
+var cFilterFrequency = 2000;
+var dFilterFrequency = 2000;
+
 //Master filter control
 const mFilterController = document.getElementById('mFilterBand');
-var mFilterFrequency = 1100;
+
 mFilterController.addEventListener('input', function() {
     mFilterFrequency = Number(this.value);
 }, false);
@@ -39,10 +58,21 @@ mFilterController.addEventListener('input', function() {
 //Disable sliders until powered on
 //Prevents input for functionality that hasn't been intitialized yet.
 mFilterController.disabled = true;
+//Pitch
 aRateControl.disabled = true;
 bRateControl.disabled = true;
 cRateControl.disabled = true;
 dRateControl.disabled = true;
+//Gain
+aGainControl.disabled = true;
+bGainControl.disabled = true;
+cGainControl.disabled = true;
+dGainControl.disabled = true;
+//Lowpass
+aFilterControl.disabled = true;
+bFilterControl.disabled = true;
+cFilterControl.disabled = true;
+dFilterControl.disabled = true;
 
 //Power Button
 //User gesture to enable audio in browser
@@ -69,6 +99,7 @@ returnButton.addEventListener('click', function() {
     backPanel.setAttribute("style", "visibility: hidden");
 }, false);
 
+//
 powerButton.addEventListener('click', function() {
     if(!isInit){
         initializeProgram();
@@ -88,19 +119,24 @@ powerButton.addEventListener('click', function() {
 
 //Initialize program - kicks off when power button is pressed the first time.
 function initializeProgram(){
+
     //cross browser audio context
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     const audioContext = new AudioContext();
+
     //Create bandpass for master filter
     var bandpass = audioContext.createBiquadFilter();
     bandpass.type = 'bandpass';
+
     //Create master gain node
     var mGainNode = audioContext.createGain();
+
     //Individual pad gains
     var aGainNode = audioContext.createGain();
     var bGainNode = audioContext.createGain();
     var cGainNode = audioContext.createGain();
     var dGainNode = audioContext.createGain();
+
     //Update gain node value and return the node
     function padGainSelect(pad){
         switch (pad) {
@@ -121,6 +157,7 @@ function initializeProgram(){
                 break;
         }
     }
+
     //Individual Gain Controllers
     aGainControl.addEventListener('input', function() {
         aGainValue = Number(this.value);
@@ -138,11 +175,61 @@ function initializeProgram(){
         dGainValue = Number(this.value);
     }, false);
 
-    //Sample rate for pads
+    //Individual pad lowpass filters
+    var aFilterNode = audioContext.createBiquadFilter();
+    aFilterNode.type = 'lowpass';
+    var bFilterNode = audioContext.createBiquadFilter();
+    bFilterNode.type = 'lowpass';
+    var cFilterNode = audioContext.createBiquadFilter();
+    cFilterNode.type = 'lowpass';
+    var dFilterNode = audioContext.createBiquadFilter();
+    dFilterNode.type = 'lowpass';
+
+    //Update lowpass filter frequency and return the node
+    function padFilterSelect(pad){
+        switch (pad) {
+            case 0:
+                aFilterNode.frequency.value = aFilterFrequency;
+                return aFilterNode;
+            case 1:
+                bFilterNode.frequency.value = bFilterFrequency;
+                return bFilterNode;
+            case 2:
+                cFilterNode.frequency.value = cFilterFrequency;
+                return cFilterNode;
+            case 3:
+                dFilterNode.frequency.value = dFilterFrequency;
+                return dFilterNode;
+            default:
+                console.log("invalid pad number entered");
+                break;
+        }
+    }
+
+    //Lowpass filter controls
+    aFilterControl.addEventListener('input', function() {
+        aFilterFrequency = Number(this.value);
+    }, false);
+
+    bFilterControl.addEventListener('input', function() {
+        bFilterFrequency = Number(this.value);
+    }, false);
+
+    cFilterControl.addEventListener('input', function() {
+        cFilterFrequency = Number(this.value);
+    }, false);
+
+    dFilterControl.addEventListener('input', function() {
+        dFilterFrequency = Number(this.value);
+    }, false);
+
+    //Sample rate / pitch for pads
     let aSampleRate = 1;
     let bSampleRate = 1;
     let cSampleRate = 1;
     let dSampleRate = 1;
+
+    //Update sample rate and return the node
     function padRateSelect(pad){
         switch (pad) {
             case 0:
@@ -158,7 +245,6 @@ function initializeProgram(){
                 break;
         }
     }
-
     aRateControl.addEventListener('input', function() {
         aSampleRate = Number(this.value);
     }, false);
@@ -174,10 +260,21 @@ function initializeProgram(){
 
     //Enable slider / fader controls now that they're functional
     mFilterController.disabled = false;
+    //Pitch Faders
     aRateControl.disabled = false;
     bRateControl.disabled = false;
     cRateControl.disabled = false;
     dRateControl.disabled = false;
+    //Volume Faders
+    aGainControl.disabled = false;
+    bGainControl.disabled = false;
+    cGainControl.disabled = false;
+    dGainControl.disabled = false;
+    //Lowpass Faders
+    aFilterControl.disabled = false;
+    bFilterControl.disabled = false;
+    cFilterControl.disabled = false;
+    dFilterControl.disabled = false;
 
     //Load samples to buffer and decode
     async function getFile(audioContext, filepath) {
@@ -208,10 +305,15 @@ function initializeProgram(){
         function playSample(audioContext, audioBuffer, pad) {
             const sampleSource = audioContext.createBufferSource();
             sampleSource.buffer = audioBuffer;
+            //Update sample pitch
             sampleSource.playbackRate.value = padRateSelect(pad);
+            //Update bandpass filter frequency
             bandpass.frequency.value = mFilterFrequency;
+            //Update master gain
             mGainNode.gain.value = masterGainValue;
-            sampleSource.connect(padGainSelect(pad)).connect(bandpass).connect(mGainNode).connect(audioContext.destination)
+            //Connect source to processing nodes and out to destination / audio output
+            sampleSource.connect(padGainSelect(pad)).connect(padFilterSelect(pad)).connect(bandpass).connect(mGainNode).connect(audioContext.destination)
+            //Play the processed sample
             sampleSource.start();
             return sampleSource;
         }
