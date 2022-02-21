@@ -337,19 +337,23 @@ function initializeProgram(){
             sampleSource.start();
             return sampleSource;
         }
+
         //Mousedown events for pads
         padButtonA.addEventListener('mousedown', function() {
             padButtonA.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
             playSample(audioContext, sampleArray[0], 0);
         }, false);
+
         padButtonB.addEventListener('mousedown', function() {
             padButtonB.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
             playSample(audioContext, sampleArray[1], 1);
         }, false);
+
         padButtonC.addEventListener('mousedown', function() {
             padButtonC.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
             playSample(audioContext, sampleArray[2], 2);
         }, false);
+
         padButtonD.addEventListener('mousedown', function() {
             padButtonD.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
             playSample(audioContext, sampleArray[3], 3);
@@ -367,6 +371,55 @@ function initializeProgram(){
         }, false);
         padButtonD.addEventListener('mouseup', function() {
             padButtonD.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+        }, false);
+
+        //Touch events for pads
+        //Pad A Touch Events
+        padButtonA.addEventListener('touchend', handleTouchEndA, false);
+        function handleTouchEndA(event){
+            event.preventDefault();
+            padButtonA.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+        }
+
+        padButtonA.addEventListener('touchstart', function() {
+            padButtonA.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
+            playSample(audioContext, sampleArray[0], 0);
+        }, false);
+
+        //Pad B Touch Events
+        padButtonB.addEventListener('touchend', handleTouchEndB, false);
+        function handleTouchEndB(event){
+            event.preventDefault();
+            padButtonB.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+        }
+
+        padButtonB.addEventListener('touchstart', function() {
+            padButtonB.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
+            playSample(audioContext, sampleArray[1], 1);
+        }, false);
+
+        //Pad C Touch Events
+        padButtonC.addEventListener('touchend', handleTouchEndC, false);
+        function handleTouchEndC(event){
+            event.preventDefault();
+            padButtonC.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+        }
+
+        padButtonC.addEventListener('touchstart', function() {
+            padButtonC.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
+            playSample(audioContext, sampleArray[2], 2);
+        }, false);
+
+        //Pad D Touch Events
+        padButtonD.addEventListener('touchend', handleTouchEndD, false);
+        function handleTouchEndD(event){
+            event.preventDefault();
+            padButtonD.setAttribute("style", "background-image: url('image/ui/front/drumpad.png')");
+        }
+
+        padButtonD.addEventListener('touchstart', function() {
+            padButtonD.setAttribute("style", "background-image: url('image/ui/front/drumpad-press.png')");
+            playSample(audioContext, sampleArray[3], 3);
         }, false);
 
         //Keyboard events (key down)
@@ -446,4 +499,5 @@ function initializeProgram(){
         // then dispatches event to window
 
     });
+
 }
