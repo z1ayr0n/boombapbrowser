@@ -1,7 +1,6 @@
 //TODO: Allow user to toggle master filter on/off.
-//TODO: Power on sound + Vinyl noise.
+//TODO: Vinyl noise.
 //TODO: Redo layout using innerHeight value on resize.
-//TODO: Wire up pad lowpass filters.
 //TODO: Refactor / Cleanup redundancy.
 
 //Sample filepaths
@@ -9,6 +8,8 @@ const kickPath = 'audio/BoomBapKick.wav';
 const snarePath = 'audio/BoomBapSnare.wav';
 const hihatPath = 'audio/BoomBapHiHat.wav';
 const percPath = 'audio/BoomBapPerc.wav';
+//Power on filepath
+const powerOnPath = 'audio/powerOn.wav';
 
 //References to pad button DOM elements
 const padButtonA = document.getElementById('padButtonA');
@@ -295,12 +296,31 @@ function initializeProgram(){
         console.log("hihat sample loaded successfully");
         sampleArray[3]= await getFile(audioContext, percPath);
         console.log("perc sample loaded successfully");
+        sampleArray[4]= await getFile(audioContext, powerOnPath);
+        console.log("power on sample loaded successfully");
         return sampleArray;
     }
 
     //When samples are ready then allow playback and user input
     setupSample()
     .then((sampleArray) => {
+
+        function powerOnSound(audioContext) {
+            const sampleSource = audioContext.createBufferSource();
+            sampleSource.buffer = sampleArray[4];
+            //Update bandpass filter frequency
+            bandpass.frequency.value = mFilterFrequency;
+            //Update master gain
+            mGainNode.gain.value = masterGainValue;
+            //Connect source to processing nodes and out to destination / audio output
+            sampleSource.connect(mGainNode).connect(audioContext.destination)
+            //Play the processed sample
+            sampleSource.start();
+            return sampleSource;
+        }
+
+        //Play power on sound after initializing
+        powerOnSound(audioContext);
 
         function playSample(audioContext, audioBuffer, pad) {
             const sampleSource = audioContext.createBufferSource();
